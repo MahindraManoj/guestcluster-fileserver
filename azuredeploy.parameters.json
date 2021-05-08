@@ -1,0 +1,42 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "existingVnetRg": {
+            "value": ""
+        },
+        "existingVnetName": {
+            "value": ""
+        },
+        "existingSubnetName": {
+            "value": ""
+        },
+        "availabilitySetName": {
+            "value": ""
+        },
+        "vmNamePrefix": {
+            "value": ""
+        },
+        "vmCount": {
+            "value": 0
+        },
+        "adminUsername": {
+            "value": ""
+        },
+        "adminPassword": {
+            "value": ""
+        },
+        "dataDiskCount": {
+            "value": 0
+        },
+        "loadBalancerName": {
+            "value": ""
+        },
+        "frontendName": {
+            "value": "" 
+        },
+        "frontendIPAddress": {
+            "value": "" 
+        }
+    }
+}

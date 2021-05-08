@@ -1,0 +1,110 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "subnetId": {
+      "type": "string",
+      "metadata": {
+        "description": "Subnet URI"
+      }
+    },
+    "loadBalancerName": {
+      "type": "string",
+      "metadata": {
+        "description": "description"
+      }
+    },
+    "frontendName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the front-end."
+      }
+    },
+    "frontendIPAddress": {
+      "type": "string",
+      "metadata": {
+        "description": "IP address of the load balancer front-end"
+      }
+    },
+    "backendPoolName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the load balancer backend pool"
+      }
+    }
+  },
+  "functions": [],
+  "variables": {
+      "healthProbeName": "[parameters('frontendName')]",
+      "loadBalancingRuleName": "[parameters('frontendName')]"
+  },
+  "resources": [
+    {
+      "name": "[parameters('loadBalancerName')]",
+      "type": "Microsoft.Network/loadBalancers",
+      "apiVersion": "2020-05-01",
+      "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "Basic",
+        "tier": "Regional"
+      },
+      "properties": {
+        "frontendIPConfigurations": [
+          {
+            "name": "[parameters('frontendName')]",
+            "properties": {
+              "privateIPAddress": "[parameters('frontEndIPAddress')]",
+              "privateIPAllocationMethod": "Static",
+              "subnet": {
+                "id": "[parameters('subnetID')]"
+              }
+            }
+          }
+        ],
+        "backendAddressPools": [
+          {
+            "name": "[parameters('backendPoolName')]"
+          }
+        ],
+        "loadBalancingRules": [
+          {
+            "name": "[variables('loadBalancingRuleName')]",
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', parameters('loadBalancerName'), parameters('frontEndName'))]"
+              },
+              "backendAddressPool": {
+                "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', parameters('loadBalancerName'), parameters('backendPoolName'))]"
+              },
+              "protocol": "Tcp",
+              "frontendPort": 445,
+              "backendPort": 445,
+              "enableFloatingIP": true,
+              "idleTimeoutInMinutes": 5,
+              "probe": {
+                "id": "[resourceId('Microsoft.Network/loadBalancers/probes', parameters('loadBalancerName'), variables('healthProbeName'))]"
+              }
+            }
+          }
+        ],
+        "probes": [
+          {
+            "name": "[variables('healthProbeName')]",
+            "properties": {
+              "protocol": "Tcp",
+              "port": 59999,
+              "intervalInSeconds": 5,
+              "numberOfProbes": 2
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "outputs": {
+    "resourceId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancerName'))]"
+    }
+  }
+}
