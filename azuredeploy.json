@@ -127,7 +127,7 @@
     {
       "name": "[concat(parameters('vmNamePrefix'), copyIndex(1), '-vm', '_nic')]",
       "type": "Microsoft.Network/networkInterfaces",
-      "apiVersion": "2019-11-01",
+      "apiVersion": "2020-11-01",
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', 'loadBalancerTemplate')]"
