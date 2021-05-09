@@ -78,8 +78,8 @@
     }
   },
   "variables": {
-    "_artifactsLocation": "https://raw.githubusercontent.com/MahindraManoj/guestcluster-fileserver",
-    "lbTemplateURL": "[concat(variables('_artifactsLocation'), '/linkedTemplates/loadbalancer/lbdeploy.json')]",
+    "_artifactsLocation": "https://raw.githubusercontent.com/MahindraManoj/guestcluster-fileserver/main",
+    "lbTemplateURL": "[concat(variables('_artifactsLocation'), '/linkedTemplates/loadbalancer/loadbalancerdeploy.json')]",
     "vmTemplateURL": "[concat(variables('_artifactsLocation'), '/linkedTemplates/virtualmachine/vmdeploy.json')]",
     "vnetID": "[resourceId(parameters('existingVnetRg'), 'Microsoft.Network/virtualNetworks', parameters('existingVnetName'))]",
     "subnetID": "[concat(variables('vnetID'),'/subnets/', parameters('existingSubnetName'))]",
