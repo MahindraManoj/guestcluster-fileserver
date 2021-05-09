@@ -13,4 +13,5 @@ This repo contains the linked arm template to deploy resources in Azure to setup
 Update the customScript.ps1 in artifacts folder with the desired storage account (and container).
 
 To deploy to Azure, use below button.
+
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMahindraManoj%2Fguestcluster-fileserver%2Fazuredeploy.json)
