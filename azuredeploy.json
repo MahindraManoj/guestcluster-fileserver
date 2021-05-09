@@ -78,9 +78,6 @@
     }
   },
   "variables": {
-    "_artifactsLocation": "https://raw.githubusercontent.com/MahindraManoj/guestcluster-fileserver/main",
-    "lbTemplateURL": "[concat(variables('_artifactsLocation'), '/linkedTemplates/loadbalancer/loadbalancerdeploy.json')]",
-    "vmTemplateURL": "[concat(variables('_artifactsLocation'), '/linkedTemplates/virtualmachine/vmdeploy.json')]",
     "vnetID": "[resourceId(parameters('existingVnetRg'), 'Microsoft.Network/virtualNetworks', parameters('existingVnetName'))]",
     "subnetID": "[concat(variables('vnetID'),'/subnets/', parameters('existingSubnetName'))]",
     "backendPoolName": "backend-pool"
@@ -106,7 +103,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[variables('lbTemplateURL')]"
+          "relativePath": "main/linkedTemplates/loadbalancer/loadbalancerdeploy.json"
         },
         "parameters": {
           "subnetId": {
@@ -173,7 +170,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[variables('vmTemplateURL')]"
+          "relativePath": "main/linkedTemplates/virtualmachine/vmdeploy.json"
         },
         "parameters": {
           "vmCount": {
