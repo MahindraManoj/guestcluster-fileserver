@@ -53,7 +53,7 @@
     "dataDiskCount": {
       "type": "int",
       "minValue": 2,
-      "maxValue": 5,
+      "maxValue": 4,
       "metadata": {
         "description": "Number of dataDisks to be attached per vm."
       }
@@ -78,9 +78,6 @@
     }
   },
   "variables": {
-    "_artifactsLocation": "https://raw.githubusercontent.com/MahindraManoj/linked-arm-template",
-    "lbTemplateURL": "[concat(variables('_artifactsLocation'), '/artifacts/loadbalancer/loadbalancerdeploy.json')]",
-    "vmTemplateURL": "[concat(variables('_artifactsLocation'), '/artifacts/virtualmachine/vmdeploy.json')]",
     "vnetID": "[resourceId(parameters('existingVnetRg'), 'Microsoft.Network/virtualNetworks', parameters('existingVnetName'))]",
     "subnetID": "[concat(variables('vnetID'),'/subnets/', parameters('existingSubnetName'))]",
     "backendPoolName": "backend-pool"
@@ -106,7 +103,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[variables('lbTemplateURL')]"
+          "relativePath": "linkedTemplates/loadbalancer/loadbalancerdeploy.json"
         },
         "parameters": {
           "subnetId": {
@@ -135,9 +132,6 @@
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', 'loadBalancerTemplate')]"
       ],
-      "tags": {
-        "displayName": "networkInterface1"
-      },
       "properties": {
         "ipConfigurations": [
           {
@@ -176,7 +170,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[variables('vmTemplateURL')]"
+          "relativePath": "linkedTemplates/virtualmachine/vmdeploy.json"
         },
         "parameters": {
           "vmCount": {

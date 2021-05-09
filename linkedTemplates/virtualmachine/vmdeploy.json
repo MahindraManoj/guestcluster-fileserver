@@ -40,12 +40,15 @@
         }
     },
     "functions": [],
-    "variables": {},
+    "variables": {
+        "customScriptStorageAccount": "lollisa",
+        "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('customScriptStorageAccount'))]"
+    },
     "resources": [
         {
             "name": "[parameters('vmName')]",
             "type": "Microsoft.Compute/virtualMachines",
-            "apiVersion": "2020-06-01",
+            "apiVersion": "2020-12-01",
             "location": "[resourceGroup().location]",
             "properties": {
                 "hardwareProfile": {
@@ -105,7 +108,32 @@
                     }
                 }
 
-            }
+            },
+            "resources": [
+                {
+                    "name": "[concat(parameters('vmName'), '/customScript')]",
+                    "type": "Microsoft.Compute/virtualMachines/extensions",
+                    "apiVersion": "2019-07-01",
+                    "location": "[resourceGroup().location]",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+                    ],
+                    "properties": {
+                        "publisher": "Microsoft.Compute",
+                        "type": "CustomScriptExtension",
+                        "typeHandlerVersion": "1.9",
+                        "autoUpgradeMinorVersion": true,
+                        "protectedSettings": {
+                            "storageAccountName": "[variables('customScriptStorageAccount')]",
+                            "storageAccountKey": "[listKeys(variables('storageAccountId'), '2019-06-01').keys[0].value]",
+                            "fileUris": [
+                               "https://lollisa.blob.core.windows.net/scripts/customScript.ps1"
+                            ],
+                            "commandToExecute": "powershell -ExecutionPolicy Bypass -file customScript.ps1"
+                        }
+                    }
+                }
+            ]
         }
     ],
     "outputs": {
