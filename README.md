@@ -14,4 +14,4 @@ Update the customScript.ps1 in artifacts folder with the desired storage account
 
 To deploy to Azure, use below button.
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMahindraManoj%2Fguestcluster-fileserver%2Fazuredeploy.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMahindraManoj%2Fguestcluster-fileserver%2Fmain%2Fazuredeploy.json)
