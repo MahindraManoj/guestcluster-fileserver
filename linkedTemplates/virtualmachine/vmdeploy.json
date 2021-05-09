@@ -113,7 +113,7 @@
                 {
                     "name": "[concat(parameters('vmName'), '/customScript')]",
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "apiVersion": "2019-07-01",
+                    "apiVersion": "2020-12-01",
                     "location": "[resourceGroup().location]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
